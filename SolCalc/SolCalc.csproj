@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Version>1.0.0</Version>
+        <Authors>Ben Hutchison</Authors>
+        <Copyright>© 2024 $(Authors)</Copyright>
+        <Company>$(Authors)</Company>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <ImplicitUsings>true</ImplicitUsings>
+        <NoWarn>CS8524</NoWarn>
+
+        <PackageProjectUrl>https://github.com/Aldaviva/SolCalc</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Aldaviva/SolCalc.git</RepositoryUrl>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <Description>Find when sunrise, sunset, and different twilights happen for a given location, based on the NOAA ESRL web calculator. Features high accuracy across several millenia, atmospheric refraction, a simple enumeration-based API, and multiple/missing events during polar night/day/twilight at extreme latitudes.</Description>
+        <PackageTags>sun solar day daylight daytime night nighttime civil nautical astronomical twilight sunrise sunset dawn daybreak dusk morning evening azimuth elevation noon</PackageTags>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <IncludeSource>true</IncludeSource>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <!-- <PackageIcon>icon.jpg</PackageIcon> -->
+        <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+        <PackageReference Include="NodaTime" Version="3.1.11" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="Tests;Performance" />
+    </ItemGroup>
+
+    <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' or '$(Configuration)' == 'Release'">
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    </PropertyGroup>
+
+</Project>
