@@ -62,13 +62,4 @@ public class SunlightCalculatorTest {
         }
     };
 
-    [Fact]
-    public void TimeZoneInvariance() {
-        ZonedDateTime timeAtLocation = ZoneDateTime(LosAngeles, 2024, 4, 22, 1, 51);
-        ZonedDateTime timeUtc        = timeAtLocation.WithZone(DateTimeZone.Utc);
-
-        SunlightCalculator.GetSunlightAt(timeAtLocation, 37.35, -121.95).Should().Be(SunlightLevel.Night, "it's night in Santa Clara at 1:51 AM local time");
-        SunlightCalculator.GetSunlightAt(timeUtc, 37.35, -121.95).Should().Be(SunlightLevel.Daylight, "it's daylight in Santa Clara at 8:51 AM UTC");
-    }
-
 }

@@ -199,9 +199,9 @@ public static class Extensions {
                 return list[0];
             }
         } else {
-            using IEnumerator<TSource> e = source.GetEnumerator();
-            if (e.MoveNext()) {
-                return e.Current;
+            using IEnumerator<TSource> enumerator = source.GetEnumerator();
+            if (enumerator.MoveNext()) {
+                return enumerator.Current;
             }
         }
 

@@ -6,7 +6,10 @@
             <DataCollector friendlyName="XPlat code coverage">
                 <Configuration>
                     <Format>lcov</Format>
-                    <!-- FIXME: exclude DecimalMath from coverage -->
+
+                    <!-- Exclusion rules are not synchronized with dotCover, which are controlled by *.sln.DotSettings -->
+                    <!-- Syntax: https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/MSBuildIntegration.md#filters -->
+                    <Exclude>[Test*]*,[Performance]*,[SolCalc]SolCalc.Math.DecimalMath,[SolCalc]SolCalc.NoaaSolarCalculator</Exclude>
                 </Configuration>
             </DataCollector>
         </DataCollectors>

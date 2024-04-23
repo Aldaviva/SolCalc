@@ -10,8 +10,7 @@ public enum SunlightLevel {
     /// <para>No sunlight at all, brightness is nearly zero.</para>
     /// <para>When sun's elevation &lt; −18°</para>
     /// <para>There are typically two periods of night in a single day, one in the morning from midnight to <see cref="SolarTimeOfDay.AstronomicalDawn"/>, and
-    /// another in the evening from <see cref="SolarTimeOfDay.AstronomicalDusk"/> to midnight of the following day. This means each period of night counts as two <see cref="SunlightInterval"/>s, because
-    /// they do not cross date boundaries.</para>
+    /// another in the evening from <see cref="SolarTimeOfDay.AstronomicalDusk"/> to midnight of the following day.</para>
     /// </summary>
     Night,
 

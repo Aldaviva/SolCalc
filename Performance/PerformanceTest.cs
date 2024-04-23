@@ -56,21 +56,9 @@ public class SolCalcBenchmarks {
 
     /*[Benchmark]
     [BenchmarkCategory("Get next sunlight change")]
-    public SunlightChange GetNextSunlightChangeByIteration() {
-        return SunlightCalculatorIteration.ListSunlightChanges(_dateTime.Date, _dateTime.Zone, Latitude, Longitude).First();
-    }*/
-
-    /*[Benchmark]
-    [BenchmarkCategory("Get next sunlight change")]
     public SunlightChange GetNextSunlightChangeByNewtonsRootFinder() {
         return SunlightCalculator.GetSunlightChanges(_dateTime, Latitude, Longitude).First();
     }*/
-
-    [Benchmark]
-    [BenchmarkCategory("Get all sunlight changes in day")]
-    public List<SunlightChange> GetAllSunlightChangesInDayByIteration() {
-        return SunlightCalculatorIteration.ListSunlightChanges(_dateTime.Date, _dateTime.Zone, Latitude, Longitude).ToList();
-    }
 
     [Benchmark]
     [BenchmarkCategory("Get all sunlight changes in day")]
