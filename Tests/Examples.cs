@@ -51,6 +51,19 @@ public class Examples(ITestOutputHelper testOutputHelper) {
         }
     }
 
+    [Fact]
+    public void QuickStart() {
+        ZonedDateTime now = SystemClock.Instance.InZone(DateTimeZoneProviders.Tzdb["America/Los_Angeles"]).GetCurrentZonedDateTime();
+        const double  lat = 37.35, lon = -121.95;
+
+        SunlightLevel currentSunlight = SunlightCalculator.GetSunlightAt(now, lat, lon);
+        SunlightChange nextSunrise = SunlightCalculator.GetSunlightChanges(now, lat, lon)
+            .First(change => change.Name == SolarTimeOfDay.Sunrise);
+
+        Console.WriteLine($"It is currently {currentSunlight} in Santa Clara, CA, US.");
+        Console.WriteLine($"The next sunrise will be {nextSunrise.Time:l<F> x}.");
+    }
+
 }
 /**/
 

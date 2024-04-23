@@ -11,6 +11,7 @@ Features high accuracy across several millenia, atmospheric refraction, a simple
 
 1. [Prerequisites](#prerequisites)
 1. [Installation](#installation)
+1. [Quick Start](#quick-start)
 1. [Concepts](#concepts)
     - [Sunlight levels](#sunlight-levels)
     - [Solar times of day](#solar-times-of-day)
@@ -25,16 +26,39 @@ Features high accuracy across several millenia, atmospheric refraction, a simple
 ![Sun](https://raw.githubusercontent.com/Aldaviva/SolCalc/master/.github/images/readme-header.jpg)
 
 ## Prerequisites
+
 - .NET runtime that conforms to [.NET Standard 2.0](https://learn.microsoft.com/en-us/dotnet/standard/net-standard?tabs=net-standard-2-0) or later
     - .NET 5 or later
     - .NET Core 2.0 or later
     - .NET Framework 4.6.1 or later
 
 ## Installation
+
 The [**`SolCalc`**](https://www.nuget.org/packages/SolCalc/) package is available on NuGet Gallery.
 
 ```bat
 dotnet add package SolCalc
+```
+
+## Quick Start
+
+```cs
+using NodaTime;
+using NodaTime.Extensions;
+using SolCalc;
+using SolCalc.Data;
+
+ZonedDateTime now = SystemClock.Instance.InZone(DateTimeZoneProviders.Tzdb["America/Los_Angeles"]).GetCurrentZonedDateTime();
+const double  lat = 37.35, lon = -121.95;
+
+SunlightLevel currentSunlight = SunlightCalculator.GetSunlightAt(now, lat, lon);
+SunlightChange nextSunrise = SunlightCalculator.GetSunlightChanges(now, lat, lon)
+    .First(change => change.Name == SolarTimeOfDay.Sunrise);
+
+Console.WriteLine($"It is currently {currentSunlight} in Santa Clara, CA, US.");
+Console.WriteLine($"The next sunrise will be {nextSunrise.Time:l<F> x}.");
+// It is currently AstronomicalTwilight in Santa Clara, CA, US.
+// The next sunrise will be Tuesday, April 23, 2024 6:23:01 am PDT.
 ```
 
 ## Concepts
@@ -46,7 +70,7 @@ For more information and diagrams, see ["Twilight" on Wikipedia](https://en.wiki
 Quantized levels of sunlight brightness based on the sun's angle above the horizon at 0°. These represent **durations** from one [solar time of day](#solar-times-of-day) to the next. Each twilight generally occurs twice per day.
 
 |Level|Solar elevation range|Description|
-|-|-|-|
+|-|-:|-|
 |**Daylight**|[0°, 90°]|Sun is visible|
 |**Civil twilight**|[−6°, 0°)|Objects are visible|
 |**Nautical twilight**|[−12°, −6°)|Silhouettes are visible|
@@ -58,7 +82,7 @@ Quantized levels of sunlight brightness based on the sun's angle above the horiz
 **Instants** in a day when the [sunlight level](#sunlight-levels) changes from one level to another.
 
 |Time of day|Sun direction|Previous light level|New light level|Solar elevation|
-|-|-|-|-|-|
+|-|-|-|-|-:|
 |**Astronomical dawn**|Rising|Night|Astronomical twilight|−18°|
 |**Nautical dawn**|Rising|Astronomical twilight|Nautical twilight|−12°|
 |**Civil dawn**|Rising|Nautical twilight|Civil twilight|−6°|
@@ -98,7 +122,7 @@ Use `SunlightCalculator.GetSunlightChanges(ZonedDateTime, double, double)` to ge
 
 The instant's time zone must be the same zone that the given location observes, otherwise the result will be wrong. In the example below, Santa Clara, CA is in the `America/Los_Angeles` time zone.
 
-The returned `IEnumerable<SunlightChange>` is infinitely long because the sun never stops rising. It is not bounded by the end of the day. This means you should not try to call `.ToList()`, `.Count()`, or any other method that fully enumerates it, because they will never end. Instead, use filtering to get just the items you want, using methods like `.TakeWhile()`, `.SkipWhile()`, `.Where()`, and `.First()`.
+The returned `IEnumerable<SunlightChange>` is infinitely long because the sun will always rise again. It is not bounded by the end of the day. This means you should not try to call `.ToList()`, `.Count()`, or any other method that fully enumerates it, because they will never end. Instead, use filtering to get just the items you want, using methods like `.TakeWhile()`, `.SkipWhile()`, `.Where()`, and `.First()`.
 
 #### Get the next sunlight level change at a location
 
