@@ -17,7 +17,7 @@
         <RepositoryType>git</RepositoryType>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <Description>Find when sunrise, sunset, and different twilights happen for a given location, based on the NOAA ESRL web calculator. Features high accuracy across several millenia, atmospheric refraction, a simple enumeration-based API, and multiple/missing events during polar night/day/twilight at extreme latitudes.</Description>
-        <PackageTags>sun solar day daylight daytime night nighttime civil nautical astronomical twilight sunrise sunset dawn daybreak dusk morning evening azimuth elevation noon</PackageTags>
+        <PackageTags>sun solar day daylight daytime night nighttime civil nautical astronomical twilight sunrise sunset dawn daybreak dusk morning evening azimuth elevation noon time</PackageTags>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <IncludeSource>true</IncludeSource>
         <IncludeSymbols>true</IncludeSymbols>
