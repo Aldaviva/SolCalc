@@ -23,7 +23,7 @@ jobs:
         domain: ${{github.repository_owner}}
 
     - name: Restore
-      run: dotnet restore --verbosity normal
+      run: dotnet restore ${{ env.ProjectName }} --verbosity normal
 
     - name: Build
       run: dotnet build ${{ env.ProjectName }} --no-restore --configuration Release
@@ -33,8 +33,8 @@ jobs:
 
     - name: Test
       run: |
-        dotnet test --verbosity normal --configuration Release --collect:"XPlat Code Coverage" --settings Tests/Tests.runsettings --logger "trx;LogFileName=TestResults.xml"
-        Out-File -InputObject "TEST_EXIT_CODE=$LASTEXITCODE" -FilePath $env:GITHUB_ENV -Append -Encoding UTF8 
+        dotnet test --configuration Release --collect:"XPlat Code Coverage" --settings Tests/Tests.runsettings --logger "trx;LogFileName=TestResults.xml" --verbosity normal
+        Out-File -InputObject "TEST_EXIT_CODE=$LASTEXITCODE" -FilePath $env:GITHUB_ENV -Append -Encoding UTF8
         Copy-Item Tests/TestResults/*/coverage.info Tests/TestResults -ErrorAction Continue
         exit 0
 
@@ -45,6 +45,7 @@ jobs:
       uses: coverallsapp/github-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: Tests/TestResults/coverage.info
 
     - name: Stop if tests failed
       run: exit $env:TEST_EXIT_CODE
