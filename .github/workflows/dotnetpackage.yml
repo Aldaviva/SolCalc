@@ -33,7 +33,7 @@ jobs:
 
     - name: Test
       run: |
-        dotnet test --configuration Release --collect:"XPlat Code Coverage" --settings Tests/Tests.runsettings --logger "trx;LogFileName=TestResults.xml" --verbosity normal
+        dotnet test Tests --configuration Release --collect:"XPlat Code Coverage" --settings Tests/Tests.runsettings --logger "trx;LogFileName=TestResults.xml" --verbosity normal
         Out-File -InputObject "TEST_EXIT_CODE=$LASTEXITCODE" -FilePath $env:GITHUB_ENV -Append -Encoding UTF8
         Copy-Item Tests/TestResults/*/coverage.info Tests/TestResults -ErrorAction Continue
         exit 0
@@ -45,7 +45,8 @@ jobs:
       uses: coverallsapp/github-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: Tests/TestResults/coverage.info
+        files: Tests/TestResults/coverage.info
+        format: lcov
 
     - name: Stop if tests failed
       run: exit $env:TEST_EXIT_CODE
