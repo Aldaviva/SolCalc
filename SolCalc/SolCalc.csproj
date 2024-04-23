@@ -23,13 +23,18 @@
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <!-- <PackageIcon>icon.jpg</PackageIcon> -->
+        <PackageIcon>icon.jpg</PackageIcon>
         <PackageReadmeFile>Readme.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
         <PackageReference Include="NodaTime" Version="3.1.11" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="icon.jpg" Pack="true" PackagePath="\" />
+        <None Include="..\Readme.md" Pack="true" PackagePath="\" />
     </ItemGroup>
 
     <ItemGroup>

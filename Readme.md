@@ -22,6 +22,8 @@ Features high accuracy across several millenia, atmospheric refraction, a simple
 
 <!-- /MarkdownTOC -->
 
+![Sun](https://raw.githubusercontent.com/Aldaviva/SolCalc/master/.github/images/readme-header.jpg)
+
 ## Prerequisites
 - .NET runtime that conforms to [.NET Standard 2.0](https://learn.microsoft.com/en-us/dotnet/standard/net-standard?tabs=net-standard-2-0) or later
     - .NET 5 or later
