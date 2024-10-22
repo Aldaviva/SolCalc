@@ -122,7 +122,7 @@ Use `SunlightCalculator.GetSunlightChanges(ZonedDateTime, double, double)` to ge
 
 The instant's time zone must be the same zone that the given location observes, otherwise the result will be wrong. In the example below, Santa Clara, CA is in the `America/Los_Angeles` time zone.
 
-The returned `IEnumerable<SunlightChange>` is infinitely long because the sun will always rise again. It is not bounded by the end of the day. This means you should not try to call `.ToList()`, `.Count()`, or any other method that fully enumerates it, because they will never end. Instead, use filtering to get just the items you want, using methods like `.TakeWhile()`, `.SkipWhile()`, `.Where()`, and `.First()`.
+The returned `IEnumerable<SunlightChange>` is infinitely long because the sun will always rise again. It is not bounded by the end of the day. This means you should not try to call `.ToList()`, `.Count()`, or any other method that fully enumerates it, because they will never end. Instead, use filtering to get just the items you want, using methods like `.TakeWhile()`, `.SkipWhile()`, and `.First()`.
 
 #### Get the next sunlight level change at a location
 
