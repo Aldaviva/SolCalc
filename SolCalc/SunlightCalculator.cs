@@ -1,4 +1,4 @@
-﻿using SolCalc.Data;
+using SolCalc.Data;
 using static Unfucked.DecimalMath;
 using static SolCalc.SolarCalculator;
 

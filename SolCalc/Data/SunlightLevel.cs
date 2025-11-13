@@ -1,4 +1,4 @@
-﻿namespace SolCalc.Data;
+namespace SolCalc.Data;
 
 /// <summary>
 /// <para>Categories of the amount of sunlight at a given time and location on Earth, based on the angle of the sun above the horizon (solar elevation).</para>

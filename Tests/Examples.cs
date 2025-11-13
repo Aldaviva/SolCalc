@@ -1,4 +1,4 @@
-﻿/*/
+/*/
 
 using NodaTime.Extensions;
 using Xunit.Abstractions;

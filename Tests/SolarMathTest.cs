@@ -1,4 +1,4 @@
-﻿namespace Tests;
+namespace Tests;
 
 public class SolarMathTest {
 

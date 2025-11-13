@@ -1,4 +1,4 @@
-﻿namespace SolCalc.Data;
+namespace SolCalc.Data;
 
 /// <summary>
 /// A well-known time of day as defined by the sun's elevation hitting a certain angle above the horizon.
