@@ -1,7 +1,6 @@
-﻿using NodaTime;
 using System.Diagnostics.CodeAnalysis;
 using static System.Math;
-using static SolCalc.Math.DecimalMath;
+using static Unfucked.DecimalMath;
 
 namespace SolCalc;
 
@@ -146,9 +145,9 @@ internal static class NoaaSolarCalculator {
 
     private static decimal CalcMeanObliquityOfEcliptic(decimal t) => 23.0m + (26.0m + (21.448m - t * (46.8150m + t * (0.00059m - t * 0.001813m))) / 60.0m) / 60.0m; // in degrees
 
-    public static decimal RadToDeg(decimal angleRad) => 180.0m * angleRad / Pi;
+    public static decimal RadToDeg(decimal angleRad) => 180.0m * angleRad / DecimalMath.PI;
 
-    public static decimal DegToRad(decimal angleDeg) => Pi * angleDeg / 180.0m;
+    public static decimal DegToRad(decimal angleDeg) => DecimalMath.PI * angleDeg / 180.0m;
 
     private static decimal CalcEquationOfTime(decimal t) {
         decimal l0Rad = DegToRad(CalcGeomMeanLongSun(t));

@@ -1,6 +1,4 @@
-﻿using NodaTime;
-
-namespace SolCalc.Data;
+﻿namespace SolCalc.Data;
 
 /// <summary>
 /// An instant in time when the amount of sunlight changes to a different level at a specific location on a specific day, based on the sun's angle above the horizon.

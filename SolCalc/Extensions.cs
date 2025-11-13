@@ -1,85 +1,11 @@
-﻿using NodaTime;
 using SolCalc.Data;
 
 namespace SolCalc;
 
 /// <summary>
-/// Helper methods for <see cref="SunlightLevel"/>, <see cref="SolarTimeOfDay"/>, and NodaTime.
+/// Helper methods for <see cref="SunlightLevel"/> and <see cref="SolarTimeOfDay"/>.
 /// </summary>
 public static class Extensions {
-
-    /// <summary>
-    /// Absolute value of a duration
-    /// </summary>
-    /// <param name="input">a duration that may be positive, negative, or zero</param>
-    /// <returns>the nonnegative magnitude of <paramref name="input"/></returns>
-    public static Duration Abs(this Duration input) {
-        return input < Duration.Zero ? Duration.Negate(input) : input;
-    }
-
-    /// <inheritdoc cref="Abs(NodaTime.Duration)"/>
-    public static Duration? Abs(this Duration? input) {
-        return input != null && input < Duration.Zero ? Duration.Negate(input.Value) : input;
-    }
-
-    // TODO: is there a test case to be found where a DST transition causes midnight to not exist?
-    /// <summary>
-    /// Get midnight on the same day as a given <see cref="ZonedDateTime"/>.
-    /// </summary>
-    /// <param name="input">a time</param>
-    /// <returns>midnight on the same date, time zone, and calendar as <paramref name="input"/></returns>
-    public static ZonedDateTime AtStartOfDay(this ZonedDateTime input) {
-        return input.Zone.AtStartOfDay(input.Date);
-    }
-
-    // TODO: test with positive and negative DST transitions
-    /// <summary>
-    /// Convert a <see cref="LocalTime"/> to a <see cref="Period"/>, representing the hours, minutes, and seconds since midnight.
-    /// </summary>
-    /// <param name="localTime">time of day</param>
-    /// <returns>period of time between <paramref name="localTime"/> and midnight of the same date</returns>
-    private static Period ToPeriodSinceStartOfDay(this LocalTime localTime) {
-        return localTime.Minus(LocalTime.Midnight);
-    }
-
-    // TODO: test with positive and negative DST transitions
-    /// <summary>
-    /// Convert a <see cref="LocalTime"/> to a <see cref="Duration"/>, representing the nanoseconds since midnight.
-    /// </summary>
-    /// <param name="localTime">time of day</param>
-    /// <returns>duration of time between <paramref name="localTime"/> and midnight of the same date</returns>
-    public static Duration ToDurationSinceStartOfDay(this LocalTime localTime) {
-        return localTime.ToPeriodSinceStartOfDay().ToDuration();
-    }
-
-    /// <summary>
-    /// Convert a time zone's UTC offset to fractional hours
-    /// </summary>
-    /// <param name="offset">time zone UTC offset, for example, <c>UTC−04:00</c> for <c>America/New_York</c> during Eastern Daylight Time</param>
-    /// <returns>floating-point hours that <paramref name="offset"/> is ahead of UTC, which would be <c>-4.0</c> in the above example</returns>
-    public static double ToHours(this Offset offset) {
-        return offset.ToTimeSpan().TotalHours;
-    }
-
-    /// <summary>
-    /// Is this time before another?
-    /// </summary>
-    /// <param name="time">a time</param>
-    /// <param name="other">another time</param>
-    /// <returns><c>true</c> if this <paramref name="time"/> happens before <paramref name="other"/>, or <c>false</c> if it happens on or after <paramref name="other"/>.</returns>
-    public static bool IsBefore(this ZonedDateTime time, ZonedDateTime other) {
-        return time.ToInstant() < other.ToInstant();
-    }
-
-    /// <summary>
-    /// Is this time after another?
-    /// </summary>
-    /// <param name="time">a time</param>
-    /// <param name="other">another time</param>
-    /// <returns><c>true</c> if this <paramref name="time"/> happens after <paramref name="other"/>, or <c>false</c> if it happens on or before <paramref name="other"/>.</returns>
-    public static bool IsAfter(this ZonedDateTime time, ZonedDateTime other) {
-        return time.ToInstant() > other.ToInstant();
-    }
 
     /// <summary>
     /// <para>For a period of sunlight at a given level, get the name for the time on a typical day when that period starts, which can depend on whether the sun is rising or setting during that
@@ -186,43 +112,5 @@ public static class Extensions {
         SolarTimeOfDay.NauticalDusk     => -12,
         SolarTimeOfDay.AstronomicalDusk => -18
     };
-
-    /// <summary>
-    /// Like <see cref="Enumerable.FirstOrDefault{TSource}(System.Collections.Generic.IEnumerable{TSource})"/>, but returns <c>null</c> for value types instead of <c>default</c> when <paramref name="source"/> is empty, because nullable chaining and coalescing is easier than ambiguous defaults that can't be chained.
-    /// </summary>
-    /// <typeparam name="TSource">type of item in <paramref name="source"/></typeparam>
-    /// <param name="source">sequence of items</param>
-    /// <returns>the first item in <paramref name="source"/>, or <c>null</c> if it it empty</returns>
-    public static TSource? FirstOrNull<TSource>(this IEnumerable<TSource> source) where TSource: struct {
-        if (source is IList<TSource> list) {
-            if (list.Count > 0) {
-                return list[0];
-            }
-        } else {
-            using IEnumerator<TSource> enumerator = source.GetEnumerator();
-            if (enumerator.MoveNext()) {
-                return enumerator.Current;
-            }
-        }
-
-        return null;
-    }
-
-    /// <summary>
-    /// Like <see cref="Enumerable.FirstOrDefault{TSource}(System.Collections.Generic.IEnumerable{TSource},System.Func{TSource,bool})"/>, but returns <c>null</c> for value types instead of <c>default</c> when <paramref name="source"/> has no items that match <paramref name="predicate"/>, because nullable chaining and coalescing is easier than ambiguous defaults that can't be chained.
-    /// </summary>
-    /// <typeparam name="TSource">type of item in <paramref name="source"/></typeparam>
-    /// <param name="source">sequence of items</param>
-    /// <param name="predicate">function that should return <c>true</c> when the passed in item from <paramref name="source"/> should be returned, or <c>false</c> to not return it</param>
-    /// <returns>the first item in <paramref name="source"/> that causes <paramref name="predicate"/> to return <c>true</c>, or <c>null</c> if it it empty or every item causes <paramref name="predicate"/> to return <c>false</c></returns>
-    public static TSource? FirstOrNull<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) where TSource: struct {
-        foreach (TSource element in source) {
-            if (predicate(element)) {
-                return element;
-            }
-        }
-
-        return null;
-    }
 
 }

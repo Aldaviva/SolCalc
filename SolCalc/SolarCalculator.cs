@@ -1,5 +1,4 @@
-﻿using NodaTime;
-using static SolCalc.NoaaSolarCalculator;
+﻿using static SolCalc.NoaaSolarCalculator;
 
 namespace SolCalc;
 

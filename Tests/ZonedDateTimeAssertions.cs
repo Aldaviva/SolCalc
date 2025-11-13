@@ -1,5 +1,6 @@
-﻿using FluentAssertions.Execution;
+using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
+using Unfucked;
 
 #pragma warning disable CS0659, S1206 // Ignore not overriding Object.GetHashCode()
 
@@ -53,8 +54,8 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
-    public AndConstraint<TAssertions> BeCloseTo(ZonedDateTime   nearbyTime, Duration precision,
-                                                string          because = "",
+    public AndConstraint<TAssertions> BeCloseTo(ZonedDateTime nearbyTime, Duration precision,
+                                                string because = "",
                                                 params object[] becauseArgs) {
         if (precision < Duration.Zero) {
             throw new ArgumentOutOfRangeException(nameof(precision), "The precision must be non-negative.");
@@ -98,7 +99,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
-    public AndConstraint<TAssertions> NotBeCloseTo(ZonedDateTime   distantTime, Duration precision, string because = "",
+    public AndConstraint<TAssertions> NotBeCloseTo(ZonedDateTime distantTime, Duration precision, string because = "",
                                                    params object[] becauseArgs) {
         if (precision < Duration.Zero) {
             throw new ArgumentOutOfRangeException(nameof(precision), "The precision must be non-negative.");
@@ -128,7 +129,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> Be(ZonedDateTime   expected, string because = "",
+    public AndConstraint<TAssertions> Be(ZonedDateTime expected, string because = "",
                                          params object[] becauseArgs) {
         Execute.Assertion
             .BecauseOf(because, becauseArgs)
@@ -156,7 +157,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> Be(ZonedDateTime?  expected, string because = "",
+    public AndConstraint<TAssertions> Be(ZonedDateTime? expected, string because = "",
                                          params object[] becauseArgs) {
         if (!expected.HasValue) {
             Execute.Assertion
@@ -191,7 +192,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> NotBe(ZonedDateTime   unexpected, string because = "",
+    public AndConstraint<TAssertions> NotBe(ZonedDateTime unexpected, string because = "",
                                             params object[] becauseArgs) {
         Execute.Assertion
             .ForCondition(Subject != unexpected)
@@ -214,7 +215,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> NotBe(ZonedDateTime?  unexpected, string because = "",
+    public AndConstraint<TAssertions> NotBe(ZonedDateTime? unexpected, string because = "",
                                             params object[] becauseArgs) {
         Execute.Assertion
             .ForCondition(Subject != unexpected)
@@ -237,7 +238,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> BeBefore(ZonedDateTime   expected, string because = "",
+    public AndConstraint<TAssertions> BeBefore(ZonedDateTime expected, string because = "",
                                                params object[] becauseArgs) {
         Execute.Assertion
             .ForCondition(Subject.HasValue && Subject.Value.ToInstant() < expected.ToInstant())
@@ -259,7 +260,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> NotBeBefore(ZonedDateTime   unexpected, string because = "",
+    public AndConstraint<TAssertions> NotBeBefore(ZonedDateTime unexpected, string because = "",
                                                   params object[] becauseArgs) {
         return BeOnOrAfter(unexpected, because, becauseArgs);
     }
@@ -275,7 +276,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> BeOnOrBefore(ZonedDateTime   expected, string because = "",
+    public AndConstraint<TAssertions> BeOnOrBefore(ZonedDateTime expected, string because = "",
                                                    params object[] becauseArgs) {
         Execute.Assertion
             .ForCondition(Subject.HasValue && Subject.Value.ToInstant() <= expected.ToInstant())
@@ -297,7 +298,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> NotBeOnOrBefore(ZonedDateTime   unexpected, string because = "",
+    public AndConstraint<TAssertions> NotBeOnOrBefore(ZonedDateTime unexpected, string because = "",
                                                       params object[] becauseArgs) {
         return BeAfter(unexpected, because, becauseArgs);
     }
@@ -313,7 +314,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> BeAfter(ZonedDateTime   expected, string because = "",
+    public AndConstraint<TAssertions> BeAfter(ZonedDateTime expected, string because = "",
                                               params object[] becauseArgs) {
         Execute.Assertion
             .ForCondition(Subject.HasValue && Subject.Value.ToInstant() > expected.ToInstant())
@@ -335,7 +336,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> NotBeAfter(ZonedDateTime   unexpected, string because = "",
+    public AndConstraint<TAssertions> NotBeAfter(ZonedDateTime unexpected, string because = "",
                                                  params object[] becauseArgs) {
         return BeOnOrBefore(unexpected, because, becauseArgs);
     }
@@ -351,7 +352,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> BeOnOrAfter(ZonedDateTime   expected, string because = "",
+    public AndConstraint<TAssertions> BeOnOrAfter(ZonedDateTime expected, string because = "",
                                                   params object[] becauseArgs) {
         Execute.Assertion
             .ForCondition(Subject.HasValue && Subject.Value.ToInstant() >= expected.ToInstant())
@@ -373,7 +374,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> NotBeOnOrAfter(ZonedDateTime   unexpected, string because = "",
+    public AndConstraint<TAssertions> NotBeOnOrAfter(ZonedDateTime unexpected, string because = "",
                                                      params object[] becauseArgs) {
         return BeBefore(unexpected, because, becauseArgs);
     }
@@ -389,7 +390,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> HaveYear(int             expected, string because = "",
+    public AndConstraint<TAssertions> HaveYear(int expected, string because = "",
                                                params object[] becauseArgs) {
         Execute.Assertion
             .BecauseOf(because, becauseArgs)
@@ -442,7 +443,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> HaveMonth(int             expected, string because = "",
+    public AndConstraint<TAssertions> HaveMonth(int expected, string because = "",
                                                 params object[] becauseArgs) {
         Execute.Assertion
             .BecauseOf(because, becauseArgs)
@@ -495,7 +496,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> HaveDay(int             expected, string because = "",
+    public AndConstraint<TAssertions> HaveDay(int expected, string because = "",
                                               params object[] becauseArgs) {
         Execute.Assertion
             .BecauseOf(because, becauseArgs)
@@ -548,7 +549,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> HaveHour(int             expected, string because = "",
+    public AndConstraint<TAssertions> HaveHour(int expected, string because = "",
                                                params object[] becauseArgs) {
         Execute.Assertion
             .BecauseOf(because, becauseArgs)
@@ -601,7 +602,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> HaveMinute(int             expected, string because = "",
+    public AndConstraint<TAssertions> HaveMinute(int expected, string because = "",
                                                  params object[] becauseArgs) {
         Execute.Assertion
             .BecauseOf(because, becauseArgs)
@@ -628,7 +629,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> NotHaveMinute(int             unexpected, string because = "",
+    public AndConstraint<TAssertions> NotHaveMinute(int unexpected, string because = "",
                                                     params object[] becauseArgs) {
         Execute.Assertion
             .BecauseOf(because, becauseArgs)
@@ -655,7 +656,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> HaveSecond(int             expected, string because = "",
+    public AndConstraint<TAssertions> HaveSecond(int expected, string because = "",
                                                  params object[] becauseArgs) {
         Execute.Assertion
             .BecauseOf(because, becauseArgs)
@@ -682,7 +683,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> NotHaveSecond(int             unexpected, string because = "",
+    public AndConstraint<TAssertions> NotHaveSecond(int unexpected, string because = "",
                                                     params object[] becauseArgs) {
         Execute.Assertion
             .BecauseOf(because, becauseArgs)
@@ -709,7 +710,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> HaveOffset(Offset          expected, string because = "",
+    public AndConstraint<TAssertions> HaveOffset(Offset expected, string because = "",
                                                  params object[] becauseArgs) {
         Execute.Assertion
             .BecauseOf(because, becauseArgs)
@@ -736,7 +737,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> NotHaveOffset(Offset          unexpected, string because = "",
+    public AndConstraint<TAssertions> NotHaveOffset(Offset unexpected, string because = "",
                                                     params object[] becauseArgs) {
         Execute.Assertion
             .BecauseOf(because, becauseArgs)
@@ -819,7 +820,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> BeSameDateAs(ZonedDateTime   expected, string because = "",
+    public AndConstraint<TAssertions> BeSameDateAs(ZonedDateTime expected, string because = "",
                                                    params object[] becauseArgs) {
         LocalDate expectedDate = expected.Date;
 
@@ -848,7 +849,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> NotBeSameDateAs(ZonedDateTime   unexpected, string because = "",
+    public AndConstraint<TAssertions> NotBeSameDateAs(ZonedDateTime unexpected, string because = "",
                                                       params object[] becauseArgs) {
         LocalDate unexpectedDate = unexpected.Date;
 
@@ -877,7 +878,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> BeSameInstantAs(ZonedDateTime   expected, string because = "",
+    public AndConstraint<TAssertions> BeSameInstantAs(ZonedDateTime expected, string because = "",
                                                       params object[] becauseArgs) {
         Instant expectedDate = expected.ToInstant();
 
@@ -906,7 +907,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> NotBeSameInstantAs(ZonedDateTime   unexpected, string because = "",
+    public AndConstraint<TAssertions> NotBeSameInstantAs(ZonedDateTime unexpected, string because = "",
                                                          params object[] becauseArgs) {
         Instant unexpectedDate = unexpected.ToInstant();
 
@@ -958,7 +959,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     public AndConstraint<TAssertions> BeOneOf(IEnumerable<ZonedDateTime> validValues, string because = "",
-                                              params object[]            becauseArgs) {
+                                              params object[] becauseArgs) {
         return BeOneOf(validValues.Cast<ZonedDateTime?>(), because, becauseArgs);
     }
 
@@ -976,7 +977,7 @@ public class ZonedDateTimeAssertions<TAssertions>(ZonedDateTime? subject) where 
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     public AndConstraint<TAssertions> BeOneOf(IEnumerable<ZonedDateTime?> validValues, string because = "",
-                                              params object[]             becauseArgs) {
+                                              params object[] becauseArgs) {
         Execute.Assertion
             .ForCondition(validValues.Contains(Subject))
             .BecauseOf(because, becauseArgs)
@@ -1036,7 +1037,7 @@ public class ZonedDateTimeRangeAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
-    public AndConstraint<TAssertions> Before(ZonedDateTime   target, string because = "",
+    public AndConstraint<TAssertions> Before(ZonedDateTime target, string because = "",
                                              params object[] becauseArgs) {
         bool success = Execute.Assertion
             .ForCondition(subject.HasValue)

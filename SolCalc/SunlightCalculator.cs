@@ -1,13 +1,12 @@
-﻿using NodaTime;
-using SolCalc.Data;
-using static SolCalc.Math.DecimalMath;
+﻿using SolCalc.Data;
+using static Unfucked.DecimalMath;
 using static SolCalc.SolarCalculator;
 
 namespace SolCalc;
 
 /// <summary>
 /// <para>Perform calculations about the level of sunlight visible at different times of day for a given date and location on Earth.</para>
-/// <para>This low-level class calculates the amount of sunlight (like dusk) and enumerate sunlight changes (like sunset). To instead calculate the sun's angle, use <see cref="SolarCalculator"/>.</para>
+/// <para>This high-level class calculates the amount of sunlight (like dusk) and enumerate sunlight changes (like sunset). To instead calculate the sun's angle, use <see cref="SolarCalculator"/>.</para>
 /// <para> </para>
 /// <para>Based on the NOAA Earth System Research Laboratories' Global Monitoring Laboratory Solar Calculator (<see href="https://gml.noaa.gov/grad/solcalc/"/>).</para>
 /// </summary>
@@ -22,7 +21,7 @@ public static class SunlightCalculator {
     /// <summary>
     /// degrees
     /// </summary>
-    internal static decimal ElevationPrecision = 0.0001m;
+    internal const decimal ElevationPrecision = 0.0001m;
 
     /// <summary>
     /// <para>Get the amount of sunlight visible at the given instant and location on Earth.</para>
@@ -93,7 +92,7 @@ public static class SunlightCalculator {
                 Interval solarHalfDay          = new(previousSolarMidnight.ToInstant(), nextSolarNoon.ToInstant());
                 decimal  desiredElevationRatio = (desiredElevation - minElevationAtSolarMidnight) / (maxElevationAtSolarNoon - minElevationAtSolarMidnight);
 
-                decimal estimatedTimeRatioOfDesiredElevation = 2 * Asin(Sqrt(desiredElevationRatio)) / Pi;
+                decimal estimatedTimeRatioOfDesiredElevation = 2 * Asin(Sqrt(desiredElevationRatio)) / PI;
                 estimatedResultTime = previousSolarMidnight + solarHalfDay.Duration * (double) estimatedTimeRatioOfDesiredElevation;
             } // otherwise the next solar time of day will never happen before the next solar noon because of polar noon/midnight
         } else {
@@ -103,7 +102,7 @@ public static class SunlightCalculator {
                 Interval solarHalfDay          = new(previousSolarNoon.ToInstant(), nextSolarMidnight.ToInstant());
                 decimal  desiredElevationRatio = (desiredElevation - minElevationAtSolarMidnight) / (maxElevationAtSolarNoon - minElevationAtSolarMidnight);
 
-                decimal estimatedTimeRatioOfDesiredElevation = 1 - 2 * Asin(Sqrt(desiredElevationRatio)) / Pi;
+                decimal estimatedTimeRatioOfDesiredElevation = 1 - 2 * Asin(Sqrt(desiredElevationRatio)) / PI;
                 estimatedResultTime = previousSolarNoon + solarHalfDay.Duration * (double) estimatedTimeRatioOfDesiredElevation;
             } // otherwise the next solar time of day will never happen before the next solar midnight because of polar noon/midnight
         }
@@ -115,7 +114,7 @@ public static class SunlightCalculator {
             estimatedResultTime   += Duration.FromSeconds((double) ((desiredElevation - elevation) / elevationRateOfChange));
             elevation             =  SolarElevation(estimatedResultTime, latitude, longitude);
 
-            if (System.Math.Abs(elevation - desiredElevation) <= ElevationPrecision) {
+            if (Math.Abs(elevation - desiredElevation) <= ElevationPrecision) {
                 break;
             }
         }

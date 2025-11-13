@@ -20,10 +20,10 @@ jobs:
     - name: Initialize test reporting
       uses: testspace-com/setup-testspace@v1
       with:
-        domain: ${{github.repository_owner}}
+        domain: ${{ github.repository_owner }}
 
     - name: Restore
-      run: dotnet restore ${{ env.ProjectName }} --verbosity normal
+      run: dotnet restore ${{ env.ProjectName }}
 
     - name: Build
       run: dotnet build ${{ env.ProjectName }} --no-restore --configuration Release
@@ -33,7 +33,7 @@ jobs:
 
     - name: Test
       run: |
-        dotnet test Tests --configuration Release --collect:"XPlat Code Coverage" --settings Tests/Tests.runsettings --logger "trx;LogFileName=TestResults.xml" --verbosity normal
+        dotnet test Tests --configuration Release --collect:"XPlat Code Coverage" --settings Tests/Tests.runsettings --logger "trx;LogFileName=TestResults.xml"
         Out-File -InputObject "TEST_EXIT_CODE=$LASTEXITCODE" -FilePath $env:GITHUB_ENV -Append -Encoding UTF8
         Copy-Item Tests/TestResults/*/coverage.info Tests/TestResults -ErrorAction Continue
         exit 0
@@ -42,7 +42,7 @@ jobs:
       run: testspace Tests/TestResults/*.xml
 
     - name: Upload coverage
-      uses: coverallsapp/github-action@v2
+      uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         files: Tests/TestResults/coverage.info
