@@ -29,7 +29,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
-        <PackageReference Include="NodaTime" Version="3.2.2" />
+        <PackageReference Include="NodaTime" Version="3.2.3" />
         <PackageReference Include="Unfucked" Version="0.0.1-beta.31" />
         <PackageReference Include="Unfucked.DateTime" Version="0.0.1-beta.3" />
     </ItemGroup>
