@@ -28,8 +28,8 @@ public static class SolarCalculator {
     private readonly record struct TimeAndPlace {
 
         public TimeAndPlace(ZonedDateTime dateTime, double latitude, double longitude) {
-            LocalTime      = (decimal) dateTime.TimeOfDay.ToDurationSinceStartOfDay().TotalMinutes;
-            TimeZoneOffset = (decimal) dateTime.Offset.ToHours();
+            LocalTime      = (decimal) dateTime.TimeOfDay.DurationSinceStartOfDay.TotalMinutes;
+            TimeZoneOffset = (decimal) dateTime.Offset.Hours;
             JulianDateTime = CalcTimeJulianCent(GetJd(dateTime.Date) + LocalTime / 1440.0m - TimeZoneOffset / 24.0m);
             Latitude       = (decimal) latitude;
             Longitude      = (decimal) longitude;

@@ -1,18 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <Version>1.0.1</Version>
+        <Version>1.0.2</Version>
         <Authors>Ben Hutchison</Authors>
-        <Copyright>© 2025 $(Authors)</Copyright>
+        <Copyright>© 2026 $(Authors)</Copyright>
         <Company>$(Authors)</Company>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
         <ImplicitUsings>true</ImplicitUsings>
-        <NoWarn>$(NoWarn);8524</NoWarn>
 
         <PackageProjectUrl>https://github.com/Aldaviva/SolCalc</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/Aldaviva/SolCalc.git</RepositoryUrl>
+        <RepositoryUrl>$(PackageProjectUrl).git</RepositoryUrl>
+        <PackageReleaseNotes>$(PackageProjectUrl)/releases/tag/$(Version)</PackageReleaseNotes>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
@@ -25,13 +25,14 @@
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <PackageIcon>icon.jpg</PackageIcon>
         <PackageReadmeFile>Readme.md</PackageReadmeFile>
+        <WarningsAsErrors>CA1859</WarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.103" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.201" PrivateAssets="All" />
         <PackageReference Include="NodaTime" Version="3.3.1" />
-        <PackageReference Include="Unfucked" Version="0.0.1-beta.32" />
-        <PackageReference Include="Unfucked.DateTime" Version="0.0.1-beta.3" />
+        <PackageReference Include="Unfucked" Version="0.0.1-beta.39" NoWarn="NU5104" />
+        <PackageReference Include="Unfucked.DateTime" Version="0.0.1-beta.5" NoWarn="NU5104" />
     </ItemGroup>
 
     <ItemGroup>

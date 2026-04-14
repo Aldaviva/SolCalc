@@ -37,7 +37,7 @@ Features high accuracy across several millenia, atmospheric refraction, a simple
 The [**`SolCalc`**](https://www.nuget.org/packages/SolCalc/) package is available on NuGet Gallery.
 
 ```bat
-dotnet add package SolCalc
+dotnet package add SolCalc
 ```
 
 ## Quick Start

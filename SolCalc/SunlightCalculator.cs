@@ -92,7 +92,7 @@ public static class SunlightCalculator {
                 Interval solarHalfDay          = new(previousSolarMidnight.ToInstant(), nextSolarNoon.ToInstant());
                 decimal  desiredElevationRatio = (desiredElevation - minElevationAtSolarMidnight) / (maxElevationAtSolarNoon - minElevationAtSolarMidnight);
 
-                decimal estimatedTimeRatioOfDesiredElevation = 2 * Asin(Sqrt(desiredElevationRatio)) / PI;
+                decimal estimatedTimeRatioOfDesiredElevation = 2 * Asin(Sqrt(desiredElevationRatio)) / Pi;
                 estimatedResultTime = previousSolarMidnight + solarHalfDay.Duration * (double) estimatedTimeRatioOfDesiredElevation;
             } // otherwise the next solar time of day will never happen before the next solar noon because of polar noon/midnight
         } else {
@@ -102,7 +102,7 @@ public static class SunlightCalculator {
                 Interval solarHalfDay          = new(previousSolarNoon.ToInstant(), nextSolarMidnight.ToInstant());
                 decimal  desiredElevationRatio = (desiredElevation - minElevationAtSolarMidnight) / (maxElevationAtSolarNoon - minElevationAtSolarMidnight);
 
-                decimal estimatedTimeRatioOfDesiredElevation = 1 - 2 * Asin(Sqrt(desiredElevationRatio)) / PI;
+                decimal estimatedTimeRatioOfDesiredElevation = 1 - 2 * Asin(Sqrt(desiredElevationRatio)) / Pi;
                 estimatedResultTime = previousSolarNoon + solarHalfDay.Duration * (double) estimatedTimeRatioOfDesiredElevation;
             } // otherwise the next solar time of day will never happen before the next solar midnight because of polar noon/midnight
         }
