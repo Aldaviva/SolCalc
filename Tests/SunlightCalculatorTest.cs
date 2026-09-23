@@ -62,4 +62,11 @@ public class SunlightCalculatorTest {
         }
     };
 
+    [Fact]
+    public void SunsUpStreamsUpTestFailure() {
+        double        latitude              = 37.35, longitude = -121.95;
+        ZonedDateTime lastMinuteOfCivilDusk = new LocalDateTime(2024, 1, 23, 12 + 5, 50, 0).InZoneStrictly(LosAngeles);
+        SunlightCalculator.GetSunlightAt(lastMinuteOfCivilDusk, latitude, longitude).Should().Be(SunlightLevel.CivilTwilight, "precondition");
+    }
+
 }

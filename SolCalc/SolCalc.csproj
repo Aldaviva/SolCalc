@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <Version>1.0.2</Version>
+        <Version>1.0.3</Version>
         <Authors>Ben Hutchison</Authors>
         <Copyright>© 2026 $(Authors)</Copyright>
         <Company>$(Authors)</Company>
@@ -19,6 +19,7 @@
         <Description>Find when sunrise, sunset, and different twilights happen for a given location, based on the NOAA ESRL Solar Calculator. Features high accuracy across several millenia, atmospheric refraction, a simple enumeration-based API, and multiple/missing events during polar night/day/twilight at extreme latitudes.</Description>
         <PackageTags>sun solar day daylight daytime night nighttime civil nautical astronomical twilight sunrise sunset dawn daybreak dusk morning evening azimuth elevation noon time</PackageTags>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <IncludeSource>true</IncludeSource>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -29,9 +30,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.203" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401" PrivateAssets="All" />
         <PackageReference Include="NodaTime" Version="3.3.4" />
-        <PackageReference Include="Unfucked" Version="0.0.1-beta.49" NoWarn="NU5104" />
+        <PackageReference Include="Unfucked" Version="0.0.1-beta.52" NoWarn="NU5104" />
         <PackageReference Include="Unfucked.DateTime" Version="0.0.1-beta.6" NoWarn="NU5104" />
     </ItemGroup>
 
